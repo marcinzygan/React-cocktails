@@ -13,3 +13,5 @@
 ```sh
 npm install react-router-dom@6
 ```
+
+- Added react-router for the application
