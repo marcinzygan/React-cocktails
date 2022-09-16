@@ -12,20 +12,29 @@ const AppProvider = ({ children }) => {
 
   // Fetch data
   const fetchData = async function () {
-    const response = await fetch(url);
-    const data = await response.json();
-    setCocktails(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}${searchTerm}`);
+      const data = await response.json();
+      if (data.drinks) {
+        setCocktails(data);
+        setLoading(false);
+      } else {
+        setCocktails([]);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <AppContext.Provider
       value={{
         loading,
-        searchTerm,
         cocktails,
         setSearchTerm,
       }}
