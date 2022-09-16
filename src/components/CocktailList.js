@@ -1,14 +1,25 @@
-import React from 'react'
-import Cocktail from './Cocktail'
-import Loading from './Loading'
-import { useGlobalContext } from '../context'
+import React from "react";
+import Cocktail from "./Cocktail";
+import Loading from "./Loading";
+import { useGlobalContext } from "../context";
 
 const CocktailList = () => {
+  const { cocktails, loading } = useGlobalContext();
+  console.log(cocktails.drinks);
+  console.log(loading);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
-      <h2>cocktail list component</h2>
-    </div>
-  )
-}
+      {cocktails.drinks.map((drink) => {
+        console.log(drink);
 
-export default CocktailList
+        return <Cocktail key={drink.idDrink} {...drink} />;
+      })}
+    </div>
+  );
+};
+
+export default CocktailList;
