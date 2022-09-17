@@ -5,7 +5,7 @@ import { useGlobalContext } from "../context";
 
 const CocktailList = () => {
   const { cocktails, loading } = useGlobalContext();
-  console.log(cocktails.drinks);
+  console.log(cocktails);
   console.log(loading);
 
   if (loading) {
@@ -20,10 +20,10 @@ const CocktailList = () => {
   }
   return (
     <div>
-      {cocktails.drinks.map((drink) => {
+      {cocktails.map((drink) => {
         console.log(drink);
 
-        return <Cocktail key={drink.idDrink} {...drink} />;
+        return <Cocktail key={drink.id} {...drink} />;
       })}
     </div>
   );

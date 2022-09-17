@@ -17,7 +17,18 @@ const AppProvider = ({ children }) => {
       const response = await fetch(`${url}${searchTerm}`);
       const data = await response.json();
       if (data.drinks) {
-        setCocktails(data);
+        const newCockatils = data.drinks.map((drink) => {
+          const { strDrink, idDrink, strDrinkThumb, strAlcoholic, strGlass } =
+            drink;
+          return {
+            id: idDrink,
+            name: strDrink,
+            img: strDrinkThumb,
+            info: strAlcoholic,
+            glass: strGlass,
+          };
+        });
+        setCocktails(newCockatils);
         setLoading(false);
       } else {
         setCocktails([]);
@@ -25,6 +36,7 @@ const AppProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
   useEffect(() => {
