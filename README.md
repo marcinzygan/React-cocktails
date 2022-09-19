@@ -22,4 +22,4 @@
 - Have a nice day 🌞
 - 📫 Find me on <a href="https://marcin-zygan.com">marcin-zygan.com</a>
 
-# This project is Live <a href="">Here</a> ! Enjoy .
+# This project is Live <a href="https://mz-react-cocktails.netlify.app">Here</a> ! Enjoy .
