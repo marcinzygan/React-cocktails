@@ -11,37 +11,40 @@ const AppProvider = ({ children }) => {
   const [cocktails, setCocktails] = useState([]);
 
   // Fetch data
-  const fetchData = async function () {
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}${searchTerm}`);
-      const data = await response.json();
-      if (data.drinks) {
-        const newCockatils = data.drinks.map((drink) => {
-          const { strDrink, idDrink, strDrinkThumb, strAlcoholic, strGlass } =
-            drink;
-          return {
-            id: idDrink,
-            name: strDrink,
-            img: strDrinkThumb,
-            info: strAlcoholic,
-            glass: strGlass,
-          };
-        });
-        setCocktails(newCockatils);
-        setLoading(false);
-      } else {
-        setCocktails([]);
+  const fetchData = useCallback(
+    async function () {
+      try {
+        setLoading(true);
+        const response = await fetch(`${url}${searchTerm}`);
+        const data = await response.json();
+        if (data.drinks) {
+          const newCockatils = data.drinks.map((drink) => {
+            const { strDrink, idDrink, strDrinkThumb, strAlcoholic, strGlass } =
+              drink;
+            return {
+              id: idDrink,
+              name: strDrink,
+              img: strDrinkThumb,
+              info: strAlcoholic,
+              glass: strGlass,
+            };
+          });
+          setCocktails(newCockatils);
+          setLoading(false);
+        } else {
+          setCocktails([]);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
         setLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+    },
+    [searchTerm]
+  );
   useEffect(() => {
     fetchData();
-  }, [searchTerm]);
+  }, [searchTerm, fetchData]);
 
   return (
     <AppContext.Provider
